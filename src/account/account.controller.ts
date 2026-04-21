@@ -1,24 +1,27 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AccountService } from './account.service';
+import { CreateAccountDto } from './dto/create-accout.dto';
+import { LoginAccountDto } from './dto/login-account.dto';
+import { UpdateAccountDto } from './dto/update-account.dto';
 
 @Controller('account')
 export class AccountController {
   constructor(private readonly accountService: AccountService) {}
-  @Get('/create')
-  create() {
-    return this.accountService.create();
+  @Post('/create')
+  create(@Body() createInfo: CreateAccountDto) {
+    return this.accountService.create(createInfo);
   }
-  @Get('/modify')
-  modify() {
-    return this.accountService.modify();
+  @Get('/update')
+  update(@Body() updateInfo: UpdateAccountDto) {
+    return this.accountService.update(updateInfo);
   }
   @Get('/inActive')
   inActive() {
     return this.accountService.inActive();
   }
-  @Get('/login')
-  login() {
-    return this.accountService.login();
+  @Post('/login')
+  login(@Body() loginInfo: LoginAccountDto) {
+    return this.accountService.login(loginInfo);
   }
   @Get('/logout')
   logout() {
