@@ -8,6 +8,14 @@ export class AccountController {
   create() {
     return this.accountService.create();
   }
+  @Get('/modify')
+  modify() {
+    return this.accountService.modify();
+  }
+  @Get('/inActive')
+  inActive() {
+    return this.accountService.inActive();
+  }
   @Get('/login')
   login() {
     return this.accountService.login();
