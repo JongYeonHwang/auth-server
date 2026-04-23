@@ -9,6 +9,4 @@ export class CreateAccountDto {
   readonly nickName: string;
   @IsNumber()
   readonly age: number;
-  @IsString({ each: true })
-  readonly favorite: string[];
 }

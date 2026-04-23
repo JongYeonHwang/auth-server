@@ -6,7 +6,7 @@ import { UpdateAccountDto } from './dto/update-account.dto';
 @Injectable()
 export class AccountService {
   create(createInfo: CreateAccountDto): string {
-    return `아이디 : ${createInfo.userName}, 비밀번호 :${createInfo.password}, 닉네임 : ${createInfo.nickName}, 나이 : ${createInfo.age}, 좋아하는것 : ${createInfo.favorite[0]}`;
+    return `아이디 : ${createInfo.userName}, 비밀번호 :${createInfo.password}, 닉네임 : ${createInfo.nickName}, 나이 : ${createInfo.age}`;
   }
   update(updateInfo: UpdateAccountDto): string {
     return `${updateInfo.age} 변경완료`;
@@ -16,8 +16,5 @@ export class AccountService {
   }
   login(loginInfo: LoginAccountDto): string {
     return `loginSuccess ${loginInfo.userName}`;
-  }
-  logout(): string {
-    return 'logout user';
   }
 }
