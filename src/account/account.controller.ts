@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Patch, Post } from '@nestjs/common';
 import { AccountService } from './account.service';
 import { CreateAccountDto } from './dto/create-accout.dto';
 import { LoginAccountDto } from './dto/login-account.dto';
@@ -11,20 +11,16 @@ export class AccountController {
   create(@Body() createInfo: CreateAccountDto) {
     return this.accountService.create(createInfo);
   }
-  @Get('/update')
+  @Patch('/update')
   update(@Body() updateInfo: UpdateAccountDto) {
     return this.accountService.update(updateInfo);
   }
-  @Get('/inActive')
+  @Patch('/inActive')
   inActive() {
     return this.accountService.inActive();
   }
   @Post('/login')
   login(@Body() loginInfo: LoginAccountDto) {
     return this.accountService.login(loginInfo);
-  }
-  @Get('/logout')
-  logout() {
-    return this.accountService.logout();
   }
 }
