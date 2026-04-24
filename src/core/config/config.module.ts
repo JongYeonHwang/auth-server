@@ -1,14 +1,18 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AuthConfigService } from './config.service';
 import * as Joi from 'joi';
 
+@Global()
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
-        DB_ENDPOINT: Joi.string(),
+        DB_ENDPOINT: Joi.string().required(),
+        DB_PORT: Joi.string().required(),
+        DB_USER: Joi.string().required(),
+        DB_PASSWORD: Joi.string().required(),
       }),
     }),
   ],
