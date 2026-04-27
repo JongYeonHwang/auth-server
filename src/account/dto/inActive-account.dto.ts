@@ -5,5 +5,5 @@ export class inActiveAccountDto {
   @IsNumber()
   readonly userId: number;
   @IsEnum(UserStatus)
-  readonly status: string;
+  readonly status: UserStatus;
 }

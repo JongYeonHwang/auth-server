@@ -10,7 +10,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         type: 'mysql',
         host: config.dbHost,
         port: config.dbPort,
-        name: config.dbName,
+        database: config.dbName,
         username: config.dbUser,
         password: config.dbPassword,
         autoLoadEntities: true,

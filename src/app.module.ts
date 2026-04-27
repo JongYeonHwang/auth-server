@@ -5,7 +5,7 @@ import { AuthConfigModule } from './core/config/config.module';
 import { DatabaseModule } from './core/database/database.module';
 
 @Module({
-  imports: [AccountModule, AuthConfigModule, DatabaseModule],
+  imports: [AuthConfigModule, DatabaseModule, AccountModule],
   controllers: [AppController],
   providers: [],
 })

@@ -1,4 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { UserStatus } from '../../common/enum/user-status.enum';
 
 @Entity()
@@ -14,5 +19,7 @@ export class User {
   @Column({ type: 'int', nullable: false, unsigned: true })
   age: number;
   @Column({ type: 'enum', enum: UserStatus, nullable: false })
-  status: string;
+  status: UserStatus;
+  @CreateDateColumn({ type: 'datetime', precision: 0, nullable: false })
+  createdAt: Date;
 }

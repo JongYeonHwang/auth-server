@@ -5,6 +5,7 @@ import { UpdateAccountDto } from './dto/update-account.dto';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { inActiveAccountDto } from './dto/inActive-account.dto';
 
 @Injectable()
 export class AccountService {
@@ -12,23 +13,34 @@ export class AccountService {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
   ) {}
-  async testGet(Dto: LoginAccountDto): Promise<User> {
+  testGet() {}
+  async create(dto: CreateAccountDto): Promise<User> {
+    const userInfo = this.userRepository.create(dto);
+    const createInfo = this.userRepository.save(userInfo);
+    return createInfo;
+  }
+  async update(dto: UpdateAccountDto): Promise<User> {
     const userInfo = await this.userRepository.findOne({
-      where: { userName: Dto.userName, password: Dto.password },
+      where: { userId: dto.userId },
+    });
+    if (!userInfo) throw new NotFoundException('찾을 수 없는 ID');
+    Object.assign(userInfo, dto);
+    return this.userRepository.save(userInfo);
+  }
+  async inActive(dto: inActiveAccountDto): Promise<User> {
+    const userInfo = await this.userRepository.findOne({
+      where: { userId: dto.userId },
+    });
+    if (!userInfo) throw new NotFoundException('찾을 수 없는 ID');
+    userInfo.status = dto.status;
+    Object.assign(userInfo, dto);
+    return this.userRepository.save(userInfo);
+  }
+  async login(dto: LoginAccountDto): Promise<User> {
+    const userInfo = await this.userRepository.findOne({
+      where: { userName: dto.userName, password: dto.password },
     });
     if (!userInfo) throw new NotFoundException('로그인불가');
     return userInfo;
-  }
-  create(createInfo: CreateAccountDto): string {
-    return `아이디 : ${createInfo.userName}, 비밀번호 :${createInfo.password}, 닉네임 : ${createInfo.nickName}, 나이 : ${createInfo.age}`;
-  }
-  update(updateInfo: UpdateAccountDto): string {
-    return `${updateInfo.age} 변경완료`;
-  }
-  inActive(): string {
-    return 'inActive user';
-  }
-  login(loginInfo: LoginAccountDto): string {
-    return `loginSuccess ${loginInfo.userName}`;
   }
 }
