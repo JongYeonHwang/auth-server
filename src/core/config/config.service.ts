@@ -3,21 +3,21 @@ import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthConfigService {
-  constructor(private configSerivce: ConfigService) {}
+  constructor(private configService: ConfigService) {}
 
-  get dbEndpoint(): string {
-    return this.configSerivce.get<string>(
-      'DB_ENDPOINT',
-      'http://localhost:3306',
-    );
+  get dbHost(): string {
+    return this.configService.get<string>('DB_HOST', 'http://localhost:3306');
   }
-  get dbPort(): string {
-    return this.configSerivce.get<string>('DB_PROT', '3306');
+  get dbPort(): number {
+    return this.configService.get<number>('DB_PROT', 3306);
+  }
+  get dbName(): string {
+    return this.configService.get<string>('DB_NAME', 'Account');
   }
   get dbUser(): string {
-    return this.configSerivce.get<string>('DB_USER', 'root');
+    return this.configService.get<string>('DB_USER', 'root');
   }
   get dbPassword(): string {
-    return this.configSerivce.get<string>('DB_PASSWORD', 'ABCDEFGH');
+    return this.configService.get<string>('DB_PASSWORD', 'ABCDEFGH');
   }
 }

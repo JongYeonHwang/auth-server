@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Patch, Post } from '@nestjs/common';
 import { AccountService } from './account.service';
 import { CreateAccountDto } from './dto/create-accout.dto';
 import { LoginAccountDto } from './dto/login-account.dto';
@@ -7,8 +7,10 @@ import { UpdateAccountDto } from './dto/update-account.dto';
 @Controller('account')
 export class AccountController {
   constructor(private readonly accountService: AccountService) {}
-  @Get()
-  testGet() {}
+  @Post()
+  testGet(@Body() loginInfo: LoginAccountDto) {
+    return this.accountService.testGet(loginInfo);
+  }
   @Post('/create')
   create(@Body() createInfo: CreateAccountDto) {
     return this.accountService.create(createInfo);
